@@ -1,0 +1,6 @@
+Mon 25 Nov 16:28:48 UTC 2024
+
+ $  cd ; cd ~/.local/share/man/
+ $  ln -s ../../../some/path/to/spt/manualPages/man1 .
+
+end.

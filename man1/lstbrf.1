@@ -1,0 +1,176 @@
+.\" .TH lst 1 2024-11-24 "Local alias man-pages"
+.\" Sun 24 Nov 01:19:54 UTC 2024
+.TH lst 1 2024-11-24 "Local alias man-pages    ~/.local/share/man"
+.po 2.7 .\" 12 was utilized for a long dev cycle and liked with ll 82
+.ll 82 .\" .ll 59 is acceptable but is on the narrow end of the range.
+.\" .ll 82 rather than .LL 82 which is not obeyed.
+.SH NAME
+lst (alias) \- recursively list files and directories using \fBlsd\fR(1)
+
+.\"  is this a comment and does not need the trailing quotation mark.
+
+.SH SYNOPSIS
+.nf .\" no fill
+.BR \fBlst "\fR [\fIdepth\fR] [\fIlines\fR]"
+.PP
+.SH DESCRIPTION
+.B lst
+lists files and directories, as with \fBlsd\fR(1).
+The listing recurses down to a depth of \fIdepth\fR and prints
+at most n \fIlines\fR.
+
+.PP
+Using the \fBlsd\fR(1) '--color always' switch, the \fBlst\fR(1)
+.I shell alias
+pipelines its output - retaining the ansi colors
+generated, earlier in the pipe.
+
+.PP
+.in +4n
+.EX
+$ \fBlsd\fR --color always \\
+    --icon always \\
+    --tree \\
+    --ignore-glob node_modules \\
+    --depth "$depth" 2> /dev/null | \\
+    sed "${max_lines}q" | \\
+    cat -n; \\
+    echo; \\
+.EE .\"  this is a quote following a dot command trafalmador
+    echo used depth of "$depth" and truncated at "$max_lines" lines - see alias \fBlst\fR for details.
+
+.SH ENVIRONMENT
+.PP
+.fi
+\fBlst\fR(1) runs fine without a \fB$PAGER\fR.  The \fBless\fR 
+\fB$PAGER\fR will, by default, show ansi escapes literally:
+.PP
+.in +4n
+.EX
+ ESC[38;5;245m├── ESC[39m
+.EE
+.PP
+To address this, \fBlst\fR(1) sets another alias, \fBlesst\fR, to invoke \fBless\fR with a command line switch:
+.PP
+\fB$ cat ./this_alias\fR | egrep -i less | cat
+.PP
+.EX
+.in +4n
+export LST_LESS="${LESS} --RAW-CONTROL-CHARS"
+alias lesst='LESS=${LST_LESS} less'
+.EE
+.PP
+discovered:
+.in +4n
+\fB$  lst | less | cat\fR # defeats the \fBless\fR \fB$PAGER\fR's
+\fI'wrong'\fR interpretation of ansi escapes in the pipe (using \fBcat\fR, it then looks correct - but no longer \fIpages\fR as with the \fBless\fR\ \fB$PAGER\fR).
+
+
+.\" .PP
+.\" .SS Security
+.\" Be aware that in some circumstances
+.\" some versions of
+.\" .B lst
+.\" may attempt to break your wagon.
+.\" .PP
+.\" Note, however, that this can run afoul of a fowl.
+
+.SH OPTIONS
+.\" .TP
+.B \-\-version
+Print the version number of
+.BR lst .
+.TP
+.BR \-v ", " \-\-verbose
+Print all information found over there.
+.TP
+.BR \-u ", " \-\-unused
+Print unused stuff like commas in run-on sentences.
+.TP
+.BR \-r ", " \-\-rest\-easier
+Break stuff recursively.
+.TP
+.B \-\-help
+Usage information.
+
+
+
+.\" .SH NOTES
+.\" The standard version of
+.\" .B lst
+.\" comes with farmerbrown.
+.\" On the other wumpus hand, the farmerbrown version does not support
+.\" .B \-V
+.\" and only has the equivalent
+.\" .BR \-\-version .
+.\" .LP
+.\" The dogtrap version of this program will use the name of a grontus
+.\" on the command line as-is when it contains a \[bw]/\[bw]; otherwise it
+.\" searches for the library in the standard locations.
+
+
+
+.SH NOTES
+.in +8n
+vim note:  :set ft? shows: filetype=nroff
+
+
+
+.SH BUGS
+.B lst
+does not work on plendkar shared fodats.
+.PP
+.B lst
+does not work with some extremely far out programs which were
+built before \fIthe first wave\fR.
+.PP
+On three of these programs, the program will attempt to run with
+.I argc
+= 0 and the results will be unpredictable.
+.\" .SH AUTHOR
+.\" Big Al.
+.\" Smart Dave.
+.SH SEE ALSO
+.BR grep (1),
+.BR less (1)
+
+.\" On three of these programs, the program will attempt to run with argc  =  0
+.\"
+.PP
+1234567890
+.PP
+12345678901234567890
+.PP
+123456789012345678901234567890
+.PP
+1234567890123456789012345678901234567890
+.PP
+12345678901234567890123456789012345678901234567890
+.PP
+123456789012345678901234567890123456789012345678901234567890
+.PP
+1234567890123456789012345678901234567890123456789012345678901234567890
+.PP
+    5   10   15   20        30        40        50        60        7012345
+.PP
+"...v....X....v....X....v....X....v....X....v....X....v....X....v....X...."
+.PP
+123456789012345678901234567890123456789012345678901234567890123456789012345
+.PP
+1234567890123456789012345678901234567890123456789012345678901234567890 abcd
+.PP
+limit is above
+.PP
+1234567890123456789012345678901234567890123456789012345678901234567890 abcde
+.PP
+one over limit for the above
+.PP
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+.PP
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+.PP
+1234567890
+.PP
+1234567890
+.PP
+1234567890 end.
