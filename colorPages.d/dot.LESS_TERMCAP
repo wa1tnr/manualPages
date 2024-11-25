@@ -1,0 +1,14 @@
+# show manpages in colors
+
+# https://unix.stackexchange.com/questions/119/colors-in-man-pages
+
+# see man 5 terminfo for escape sequences and more.
+#  md me so us ue defined in this file.
+
+export LESS_TERMCAP_md=$'\E[1m\E[32m\E[1m\E[40m'
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput smso)
+# us: begin underline - pale cyan
+export LESS_TERMCAP_us=$'\E[4m\E[0m\E[36m'
+# ue: end underline
+export LESS_TERMCAP_ue=$'\E[24m\E(B\E[m'
