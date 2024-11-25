@@ -1,0 +1,20 @@
+ 
+  $  cd /usr/share/doc
+
+  $  /bin/pwd ; lst 8 17999 | rg 'lsd\x1B'
+/usr/share/doc
+ 11621  ├── 🗁 lsd[0m
+
+  $  lsd --color always --icon always --tree \
+         --ignore-glob node_modules --depth 3 | \
+         sed 99q | cat -n ; echo ; \
+         echo used depth of 3 and truncated at 99 lines - see alias lst for details.
+
+  $  #  /usr/share/doc returns 17301 lines from 'lst(1)'.
+
+  $  /bin/pwd ; lst 8 17999 | ag 'lsd\033'
+  $  /bin/pwd ; lst 8 17999 | rg 'lsd\x1B'
+
+Mon 25 Nov 18:26:31 UTC 2024
+
+# end.
